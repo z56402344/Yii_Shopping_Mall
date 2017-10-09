@@ -41,7 +41,7 @@ use yii\helpers\Html;
 
     <?php $form = ActiveForm::begin([
         'fieldConfig'=>[
-            'template'=>'{input}',
+            'template'=>'{input}{error}',
         ]
     ]) ?>
     <div class="span4 box">
