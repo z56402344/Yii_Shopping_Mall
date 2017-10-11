@@ -2,7 +2,6 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 ?>
-
 <!DOCTYPE html>
 <html class="login-bg">
 <head>
@@ -27,7 +26,6 @@ use yii\helpers\Html;
     <link rel="stylesheet" href="assets/admin/css/compiled/signin.css" type="text/css" media="screen" />
 
     <!-- open sans font -->
-    <link href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
 
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -37,27 +35,25 @@ use yii\helpers\Html;
 
 
 <div class="row-fluid login-wrapper">
-    <a class="brand" href="index.html"></a>
-
+    <a class="brand" href="<?php echo yii\helpers\Url::to(['/index/index']) ?>"></a>
     <?php $form = ActiveForm::begin([
-        'fieldConfig'=>[
-            'template'=>'{error}{input}',
-        ]
-    ]) ?>
+        'fieldConfig' => [
+            'template' => '{error}{input}',
+        ],
+    ]); ?>
     <div class="span4 box">
         <div class="content-wrap">
-            <h6>慕课商城 - 后台管理</h6>
-            <?php echo $form->field($model,'adminuser')->textInput(["class"=>"span12", "placeholder"=>"管理员账号"])?>
-            <?php echo $form->field($model,'adminpass')->textInput(["class"=>"span12", "placeholder"=>"管理员密码"])?>
-            <a href="<?php echo yii\helpers\Url::to(['public/seekpassword'])?>" class="forgot">忘记密码?</a>
-            <?php echo $form->field($model,'rememberMe')->checkbox([
-                'id'=>'remember-me',
-                'template'=>'<div class="remember">{input}<label for="remember-me">记住我</label></div>'
-            ])?>
-            <?php echo Html::submitButton('登录',["class"=>"btn-glow primary login"])?>
+            <h6>慕课商城 - 找回密码</h6>
+            <?php if (Yii::$app->session->hasFlash('info')) {
+                echo Yii::$app->session->getFlash('info');
+            } ?>
+            <?php echo $form->field($model, 'adminuser')->textInput(["class" => "span12", "placeholder" => "管理员账号"]); ?>
+            <?php echo $form->field($model, 'adminemail')->textInput(["class" => "span12", "placeholder" => "管理员电子邮箱"]); ?>
+            <a href="<?php echo yii\helpers\Url::to(['public/login']); ?>" class="forgot">返回登录</a>
+            <?php echo Html::submitButton('找回密码', ["class" => "btn-glow primary login"]); ?>
         </div>
     </div>
-    <?php $form = ActiveForm::end() ?>
+    <?php ActiveForm::end(); ?>
 </div>
 
 <!-- scripts -->
@@ -76,7 +72,7 @@ use yii\helpers\Html;
             $(this).addClass("active");
             var bg = $(this).data("img");
 
-            $("html").css("background-image", "url('assets/admin/img/bgs/" + bg + "')");
+            $("html").css("background-image", "url('img/bgs/" + bg + "')");
         });
 
     });

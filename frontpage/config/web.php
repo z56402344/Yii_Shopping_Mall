@@ -28,7 +28,16 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            //这句一定有，false发送邮件，true只是生成邮件在runtime文件夹下，不发邮件
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.163.com',//每种邮箱的host配置不一样
+                'username' => 'imooc_shop@163.com',
+                'password' => 'imooc123',
+                'port' => '465',//端口号
+                'encryption' => 'ssl',
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
