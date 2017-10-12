@@ -3,6 +3,7 @@
 namespace app\modules\controllers;
 
 use app\modules\models\Admin;
+use yii\data\Pagination;
 use yii\web\Controller;
 use Yii;
 
@@ -21,7 +22,7 @@ class ManageController extends Controller{
             $this->redirect(['public/login']);
             Yii::$app->end();
         }
-        if (time()-$time > 10 * 1000 * 60){
+        if (time()- $time > 10 * 1000 * 60){
             $this->redirect(['public/login']);
             Yii::$app->end();
         }
@@ -36,5 +37,16 @@ class ManageController extends Controller{
 
         $model->adminuser = $adminuser;
         return $this->render("mailchangepass",['model'=>$model]);
+    }
+
+    public function actionManagers(){
+
+        $this->layout = "layout1";
+        $model = Admin::find();
+        $count = $model->count();
+        $pageSize = Yii::$app->params['pageSize']['manage'];
+        $pager = new Pagination(['totalCount'=> $count, 'pageSize' => $pageSize]);
+        $managers = $model->offset($pager->offset)->limit($pager->limit)->all();
+        return $this->render("managers",['managers'=>$managers, 'pager'=>$pager]);
     }
 }

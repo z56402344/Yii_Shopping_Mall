@@ -17,7 +17,7 @@ class Admin extends ActiveRecord{
     public function rules(){
 
         return [
-            ['adminuser','required', 'message'=>'管理员账号不能为空', 'on'=>['login','seekpass']],
+            ['adminuser','required', 'message'=>'管理员账号不能为空', 'on'=>['login','seekpass', 'changepass']],
             ['adminpass','required', 'message'=>'管理员密码不能为空', 'on'=> ['login','changepass'] ],
             ['rememberMe','boolean', 'on'=> 'login'],
             ['adminpass','validatePass', 'on'=> 'login'],
@@ -26,8 +26,8 @@ class Admin extends ActiveRecord{
             ['adminemail','email', 'message'=>'管理员邮箱格式不正确', 'on'=> 'seekpass'],
             ['adminemail','validateEmail', 'on'=> 'seekpass'],
 
-            ['repass', 'required', 'message' => '确认密码不能为空', 'on' => ['changepass']],
-            ['repass', 'compare', 'compareAttribute' => 'adminpass', 'message' => '两次密码输入不一致', 'on' => ['changepass']],
+            ['repass', 'required', 'message' => '确认密码不能为空', 'on' => 'changepass'],
+            ['repass', 'compare', 'compareAttribute' => 'adminpass', 'message' => '两次密码输入不一致', 'on' => 'changepass'],
 
 //            ['adminemail', 'unique', 'message' => '电子邮箱已被注册', 'on' => ['adminadd', 'changeemail']],
 //            ['adminuser', 'unique', 'message' => '管理员已被注册', 'on' => 'adminadd'],
@@ -46,13 +46,6 @@ class Admin extends ActiveRecord{
     }
 
     public function validateEmail(){
-//        if (!$this->hasErrors()){
-//            $data = self::find()->where('adminuser = :user and adminemail = :email',[":user" => $this->adminuser,":email" => $this->adminemail])->one();
-//            if (is_null($data)){
-//                $this->addError("adminemail","管理员账号不匹配");
-//            }
-//        }
-
         if (!$this->hasErrors()) {
             $data = self::find()->where('adminuser = :user and adminemail = :email', [':user' => $this->adminuser, ':email' => $this->adminemail])->one();
             if (is_null($data)) {
@@ -106,10 +99,6 @@ class Admin extends ActiveRecord{
 
     public function changePass($data){
         $this->scenario = "changepass";
-//        if ($this->load($data) && $this->validate()){
-//            return (bool)$this->updateAll(['adminpass' => md5($this->adminpass)], 'adminuser = :user', [':user' => $this->adminuser]);
-//        }
-
         if ($this->load($data) && $this->validate()) {
             var_dump($data);
             var_dump("验证中");
