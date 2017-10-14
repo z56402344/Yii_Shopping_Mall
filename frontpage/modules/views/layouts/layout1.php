@@ -43,7 +43,7 @@
             <span class="icon-bar"></span>
         </button>
 
-        <a class="brand" href="index.html" style="font-weight:700;font-family:Microsoft Yahei">慕课商城 - 后台管理</a>
+        <a class="brand" href="<?php \yii\helpers\Url::to(['default/index']) ?>" style="font-weight:700;font-family:Microsoft Yahei">慕课商城 - 后台管理</a>
 
         <ul class="nav pull-right">
             <li class="hidden-phone">
@@ -136,8 +136,8 @@
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="personal-info.html">个人信息管理</a></li>
-                    <li><a href="#">修改密码</a></li>
+                    <li><a href="<?php echo yii\helpers\Url::to(['manage/changeemail']) ?>">个人信息管理</a></li>
+                    <li><a href="<?php echo \yii\helpers\Url::to(['manage/changepass'])?>">修改密码</a></li>
                     <li><a href="#">订单管理</a></li>
                 </ul>
             </li>
@@ -164,7 +164,7 @@
                 <div class="arrow"></div>
                 <div class="arrow_border"></div>
             </div>
-            <a href="index.html">
+            <a href="<?php echo \yii\helpers\Url::to(['default/index']) ?>">
                 <i class="icon-home"></i>
                 <span>后台首页</span>
             </a>
