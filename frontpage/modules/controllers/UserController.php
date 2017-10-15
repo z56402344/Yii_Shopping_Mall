@@ -2,13 +2,14 @@
 
 namespace app\modules\controllers;
 
-use app\modules\models\Admin;
-use Symfony\Component\Yaml\Tests\A;
+use app\models\Profile;
+use app\models\User;
+use yii\base\Exception;
 use yii\data\Pagination;
-use yii\web\Controller;
 use Yii;
+use yii\web\Controller;
 
-class ManageController extends Controller{
+class UserController extends Controller{
 
     public function actionMailchangepass(){
 
@@ -16,7 +17,7 @@ class ManageController extends Controller{
         $time = Yii::$app->request->get("timestamp");
         $adminuser = Yii::$app->request->get("adminuser");
         $token = Yii::$app->request->get("token");
-        $model = new Admin();
+        $model = new User();
         $myToken = $model->createToken($adminuser,$time);
         if ($token != $myToken){
             //token 不相等
@@ -40,20 +41,19 @@ class ManageController extends Controller{
         return $this->render("mailchangepass",['model'=>$model]);
     }
 
-    public function actionManagers(){
-
+    public function actionUsers(){
         $this->layout = "layout1";
-        $model = Admin::find();
+        $model = User::find()->joinWith('profile');
         $count = $model->count();
-        $pageSize = Yii::$app->params['pageSize']['manage'];
+        $pageSize = Yii::$app->params['pageSize']['user'];
         $pager = new Pagination(['totalCount'=> $count, 'pageSize' => $pageSize]);
-        $managers = $model->offset($pager->offset)->limit($pager->limit)->all();
-        return $this->render("managers",['managers'=>$managers, 'pager'=>$pager]);
+        $users = $model->offset($pager->offset)->limit($pager->limit)->all();
+        return $this->render("users",['users'=>$users, 'pager'=>$pager]);
     }
 
     public function actionReg(){
         $this->layout = "layout1";
-        $model = new Admin();
+        $model = new User();
         if (Yii::$app->request->isPost){
             $post = Yii::$app->request->post();
             if ($model->reg($post)){
@@ -62,21 +62,37 @@ class ManageController extends Controller{
                 Yii::$app->session->setFlash('info','添加失败');
             }
         }
-        $model->adminpass = '';
+        $model->userpass = '';
         $model->repass = '';
         return $this->render('reg',['model' =>$model]);
     }
 
     public function actionDel(){
-        $adminid = Yii::$app->request->get('adminid');
-        if (empty($adminid)){
-            $this->redirect(['manage/managers']);
+        try{
+            $userid = Yii::$app->request->get('userid');
+            if (empty($userid)){
+                throw new Exception();
+//                $this->redirect(['user/users']);
+            }
+            $trans =Yii::$app->db->beginTransaction();
+            if ($obj = Profile::find()->where('userid = :id', [':id' => $userid])->one()) {
+                $res = Profile::deleteAll('userid = :id', [':id' => $userid]);
+                if (empty($res)) {
+                    throw new \Exception();
+                }
+            }
+            $model = new User();
+            if ($model->deleteAll('userid = :id',[':id' => $userid])){
+                Yii::$app->session->setFlash('info','删除成功');
+                $this->redirect(['user/users']);
+            }
+            $trans->commit();
+        }catch (Exception $e){
+            if (Yii::$app->db->getTransaction()){
+                $trans->rollBack();
+            }
         }
-        $model = new Admin();
-        if ($model->deleteAll('adminid = :id',[':id' => $adminid])){
-            Yii::$app->session->setFlash('info','删除成功');
-            $this->redirect(['manage/managers']);
-        }
+
     }
 
     public function actionChangeemail(){
@@ -94,7 +110,7 @@ class ManageController extends Controller{
 
     public function actionChangepass(){
         $this->layout = 'layout1';
-        $model = Admin::find()->where('adminuser = :user',[':user' => Yii::$app->session['admin']['adminuser']])->one();
+        $model = User::find()->where('adminuser = :user',[':user' => Yii::$app->session['admin']['adminuser']])->one();
         if (Yii::$app->request->isPost){
             $post = Yii::$app->request->post();
             if ($model->changepass($post)){

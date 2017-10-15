@@ -119,42 +119,42 @@
 
     <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
     <div class="top-cart-holder dropdown animate-dropdown">
-        
+
         <div class="basket">
-            
+
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <div class="basket-item-count">
-                <span class="count"><?php echo count($this->params['cart']['products']) ?></span>
+<!--                <span class="count">--><?php //echo count($this->params['cart']['products']) ?><!--</span>-->
                     <img src="/assets/images/icon-cart.png" alt="" />
                 </div>
 
-                <div class="total-price-basket"> 
+                <div class="total-price-basket">
                     <span class="lbl">您的购物车:</span>
                     <span class="total-price">
-                    <span class="sign">￥</span><span class="value"><?php echo $this->params['cart']['total'] ?></span>
+<!--                    <span class="sign">￥</span><span class="value">--><?php //echo $this->params['cart']['total'] ?><!--</span>-->
                     </span>
                 </div>
             </a>
 
             <ul class="dropdown-menu">
-<?php foreach((array)$this->params['cart']['products'] as $product): ?>
-                <li>
-                    <div class="basket-item">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4 no-margin text-center">
-                                <div class="thumb">
-                                <img alt="" src="<?php echo $product['cover'] ?>-picsmall" />
-                                </div>
-                            </div>
-                            <div class="col-xs-8 col-sm-8 no-margin">
-                            <div class="title"><?php echo $product['title'] ?></div>
-                            <div class="price">￥ <?php echo $product['price'] ?></div>
-                            </div>
-                        </div>
-                        <a class="close-btn" href="<?php echo yii\helpers\Url::to(['cart/del', 'cartid' => $product['cartid']]) ?>"></a>
-                    </div>
-                </li>
-<?php endforeach; ?>
+<?php //foreach((array)$this->params['cart']['products'] as $product): ?>
+<!--                <li>-->
+<!--                    <div class="basket-item">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-xs-4 col-sm-4 no-margin text-center">-->
+<!--                                <div class="thumb">-->
+<!--                                <img alt="" src="--><?php //echo $product['cover'] ?><!---picsmall" />-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-xs-8 col-sm-8 no-margin">-->
+<!--                            <div class="title">--><?php //echo $product['title'] ?><!--</div>-->
+<!--                            <div class="price">￥ --><?php //echo $product['price'] ?><!--</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <a class="close-btn" href="--><?php //echo yii\helpers\Url::to(['cart/del', 'cartid' => $product['cartid']]) ?><!--"></a>-->
+<!--                    </div>-->
+<!--                </li>-->
+<?php //endforeach; ?>
                 <li class="checkout">
                     <div class="basket-item">
                         <div class="row">
@@ -191,28 +191,28 @@
             <div class="collapse navbar-collapse" id="mc-horizontal-menu-collapse">
                 <ul class="nav navbar-nav">
 <?php
-    foreach((array)$this->params['menu'] as $menu):
-?>
-                    <li class="dropdown">
-                    <a href="<?php echo yii\helpers\Url::to(['product/index', 'cateid' => $menu['cateid']]) ?>" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><?php echo $menu['title'] ?></a>
-                        <ul class="dropdown-menu">
-                            <li><div class="yamm-content">
-    <div class="row">
-       <div class="col-12 col-xs-12 col-sm-12">
-            <ul>
-                <?php foreach((array)$menu['children'] as $child): ?>
-                <li><a href="<?php echo yii\helpers\Url::to(['product/index', 'cateid' => $child['cateid']]) ?>"><?php echo $child['title'] ?></a></li>
-                <?php endforeach; ?>
-            </ul>
-        </div><!-- /.col -->
-
-    </div><!-- /.row -->
-</div><!-- /.yamm-content --></li>
-                        </ul>
-                    </li>
+//    foreach((array)$this->params['menu'] as $menu):
+//?>
+<!--                    <li class="dropdown">-->
+<!--                    <a href="--><?php //echo yii\helpers\Url::to(['product/index', 'cateid' => $menu['cateid']]) ?><!--" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">--><?php //echo $menu['title'] ?><!--</a>-->
+<!--                        <ul class="dropdown-menu">-->
+<!--                            <li><div class="yamm-content">-->
+<!--    <div class="row">-->
+<!--       <div class="col-12 col-xs-12 col-sm-12">-->
+<!--            <ul>-->
+<!--                --><?php //foreach((array)$menu['children'] as $child): ?>
+<!--                <li><a href="--><?php //echo yii\helpers\Url::to(['product/index', 'cateid' => $child['cateid']]) ?><!--">--><?php //echo $child['title'] ?><!--</a></li>-->
+<!--                --><?php //endforeach; ?>
+<!--            </ul>-->
+<!--        </div><!-- /.col -->-->
+<!---->
+<!--    </div><!-- /.row -->-->
+<!--</div><!-- /.yamm-content --></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
 <?php
-    endforeach;
-?>
+//    endforeach;
+//?>
                 </ul><!-- /.navbar-nav -->
             </div><!-- /.navbar-collapse -->
         </div><!-- /.navbar -->
@@ -232,25 +232,25 @@
     <h2>推荐商品</h2>
     <div class="body">
         <ul>
-            <?php foreach($this->params['tui'] as $pro): ?>
-            <li>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-9 no-margin">
-                    <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]); ?>"><?php echo $pro->title ?></a>
-                        <div class="price">
-                        <div class="price-prev">￥<?php echo $pro->price ?></div>
-                        <div class="price-current">￥<?php echo $pro->saleprice ?></div>
-                        </div>
-                    </div>  
-
-                    <div class="col-xs-12 col-sm-3 no-margin">
-                    <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?>" class="thumb-holder">
-                            <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>-picsmall" data-echo="<?php echo $pro->cover ?>-picsmall" />
-                        </a>
-                    </div>
-                </div>
-            </li>
-            <?php endforeach; ?>
+<!--            --><?php //foreach($this->params['tui'] as $pro): ?>
+<!--            <li>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-xs-12 col-sm-9 no-margin">-->
+<!--                    <a href="--><?php //echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]); ?><!--">--><?php //echo $pro->title ?><!--</a>-->
+<!--                        <div class="price">-->
+<!--                        <div class="price-prev">￥--><?php //echo $pro->price ?><!--</div>-->
+<!--                        <div class="price-current">￥--><?php //echo $pro->saleprice ?><!--</div>-->
+<!--                        </div>-->
+<!--                    </div>  -->
+<!---->
+<!--                    <div class="col-xs-12 col-sm-3 no-margin">-->
+<!--                    <a href="--><?php //echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?><!--" class="thumb-holder">-->
+<!--                            <img alt="--><?php //echo $pro->title ?><!--" src="--><?php //echo $pro->cover ?><!---picsmall" data-echo="--><?php //echo $pro->cover ?><!---picsmall" />-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--            --><?php //endforeach; ?>
         </ul>
     </div><!-- /.body -->
 </div> <!-- /.widget -->
@@ -262,25 +262,25 @@
     <h2>热卖商品</h2>
     <div class="body">
         <ul>
-            <?php foreach($this->params['hot'] as $pro): ?>
-            <li>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-9 no-margin">
-                    <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]); ?>"><?php echo $pro->title ?></a>
-                        <div class="price">
-                        <div class="price-prev">￥<?php echo $pro->price ?></div>
-                        <div class="price-current">￥<?php echo $pro->saleprice ?></div>
-                        </div>
-                    </div>  
-
-                    <div class="col-xs-12 col-sm-3 no-margin">
-                    <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?>" class="thumb-holder">
-                            <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>-picsmall" data-echo="<?php echo $pro->cover ?>-picsmall" />
-                        </a>
-                    </div>
-                </div>
-            </li>
-            <?php endforeach; ?>
+<!--            --><?php //foreach($this->params['hot'] as $pro): ?>
+<!--            <li>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-xs-12 col-sm-9 no-margin">-->
+<!--                    <a href="--><?php //echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]); ?><!--">--><?php //echo $pro->title ?><!--</a>-->
+<!--                        <div class="price">-->
+<!--                        <div class="price-prev">￥--><?php //echo $pro->price ?><!--</div>-->
+<!--                        <div class="price-current">￥--><?php //echo $pro->saleprice ?><!--</div>-->
+<!--                        </div>-->
+<!--                    </div>  -->
+<!---->
+<!--                    <div class="col-xs-12 col-sm-3 no-margin">-->
+<!--                    <a href="--><?php //echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?><!--" class="thumb-holder">-->
+<!--                            <img alt="--><?php //echo $pro->title ?><!--" src="--><?php //echo $pro->cover ?><!---picsmall" data-echo="--><?php //echo $pro->cover ?><!---picsmall" />-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--            --><?php //endforeach; ?>
         </ul>
     </div><!-- /.body -->
 </div> <!-- /.widget -->
@@ -292,25 +292,25 @@
     <h2>最新商品</h2>
     <div class="body">
         <ul>
-            <?php foreach($this->params['new'] as $pro): ?>
-            <li>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-9 no-margin">
-                    <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]); ?>"><?php echo $pro->title ?></a>
-                        <div class="price">
-                        <div class="price-prev">￥<?php echo $pro->price ?></div>
-                        <div class="price-current">￥<?php echo $pro->saleprice ?></div>
-                        </div>
-                    </div>  
-
-                    <div class="col-xs-12 col-sm-3 no-margin">
-                    <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?>" class="thumb-holder">
-                            <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>-picsmall" data-echo="<?php echo $pro->cover ?>-picsmall" />
-                        </a>
-                    </div>
-                </div>
-            </li>
-            <?php endforeach; ?>
+<!--            --><?php //foreach($this->params['new'] as $pro): ?>
+<!--            <li>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-xs-12 col-sm-9 no-margin">-->
+<!--                    <a href="--><?php //echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]); ?><!--">--><?php //echo $pro->title ?><!--</a>-->
+<!--                        <div class="price">-->
+<!--                        <div class="price-prev">￥--><?php //echo $pro->price ?><!--</div>-->
+<!--                        <div class="price-current">￥--><?php //echo $pro->saleprice ?><!--</div>-->
+<!--                        </div>-->
+<!--                    </div>  -->
+<!---->
+<!--                    <div class="col-xs-12 col-sm-3 no-margin">-->
+<!--                    <a href="--><?php //echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?><!--" class="thumb-holder">-->
+<!--                            <img alt="--><?php //echo $pro->title ?><!--" src="--><?php //echo $pro->cover ?><!---picsmall" data-echo="--><?php //echo $pro->cover ?><!---picsmall" />-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--            --><?php //endforeach; ?>
         </ul>
     </div><!-- /.body -->
 </div><!-- /.widget -->
@@ -368,9 +368,9 @@
     <div class="widget">
         <h3>最新商品</h3>
         <ul>
-            <?php foreach($this->params['new'] as $pro): ?>
-            <li><a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?>"><?php echo $pro->title; ?></a></li>
-            <?php endforeach; ?>
+<!--            --><?php //foreach($this->params['new'] as $pro): ?>
+<!--            <li><a href="--><?php //echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?><!--">--><?php //echo $pro->title; ?><!--</a></li>-->
+<!--            --><?php //endforeach; ?>
         </ul>
     </div><!-- /.widget -->
 </div><!-- /.link-widget -->
@@ -379,9 +379,9 @@
     <div class="widget">
         <h3>热门商品</h3>
         <ul>
-            <?php foreach($this->params['hot'] as $pro): ?>
-            <li><a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?>"><?php echo $pro->title; ?></a></li>
-            <?php endforeach; ?>
+<!--            --><?php //foreach($this->params['hot'] as $pro): ?>
+<!--            <li><a href="--><?php //echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?><!--">--><?php //echo $pro->title; ?><!--</a></li>-->
+<!--            --><?php //endforeach; ?>
         </ul>
     </div><!-- /.widget -->
 </div><!-- /.link-widget -->
@@ -390,9 +390,9 @@
     <div class="widget">
         <h3>促销商品</h3>
         <ul>
-            <?php foreach($this->params['sale'] as $pro): ?>
-            <li><a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?>"><?php echo $pro->title; ?></a></li>
-            <?php endforeach; ?>
+<!--            --><?php //foreach($this->params['sale'] as $pro): ?>
+<!--            <li><a href="--><?php //echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?><!--">--><?php //echo $pro->title; ?><!--</a></li>-->
+<!--            --><?php //endforeach; ?>
         </ul>
     </div><!-- /.widget -->
 </div><!-- /.link-widget -->
