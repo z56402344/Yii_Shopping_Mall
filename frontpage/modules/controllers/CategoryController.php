@@ -62,5 +62,5 @@ class CategoryController extends Controller{
         }
         return $this->redirect(['category/list']);
     }
- 
+
 }
